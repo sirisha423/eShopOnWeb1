@@ -21,10 +21,10 @@ jobs:
         with:
           credentials_json: '${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}'
         
-      - name: Build and push eshoponwebmvc
-        run: |
-          docker build -t asia-south1-docker.pkg.dev/asif-345/siri-test-repo/eshoponwebmvc:latest -f src/Web/Dockerfile .
-          docker push asia-south1-docker.pkg.dev/asif-345/siri-test-repo/eshoponwebmvc:latest
+    #   - name: Build and push eshoponwebmvc
+    #     run: |
+    #       docker build -t asia-south1-docker.pkg.dev/asif-345/siri-test-repo/eshoponwebmvc:latest -f src/Web/Dockerfile .
+    #       docker push asia-south1-docker.pkg.dev/asif-345/siri-test-repo/eshoponwebmvc:latest
 
       - name: Build and push eshoppublicapi
         run: |

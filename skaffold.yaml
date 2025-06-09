@@ -1,0 +1,14 @@
+apiVersion: skaffold/v4beta13
+kind: Config
+metadata:
+  name: eshoponweb
+build:
+  artifacts:
+  - image: asia-south1-docker.pkg.dev/asif-345/siri-test-repo/eshoponwebmvc
+    docker:
+      dockerfile: src/Web/Dockerfile
+  - image: asia-south1-docker.pkg.dev/asif-345/siri-test-repo/eshoppublicapi
+    docker:
+        dockerfile: src/PublicApi/Dockerfile
+  local:
+    push: true

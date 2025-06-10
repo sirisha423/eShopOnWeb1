@@ -1,4 +1,4 @@
-name: Build and Push with Skaffold
+name: Build and Push with Docker
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  skaffold-build:
+  docker-build-push:
     runs-on: ubuntu-latest
 
     steps:
@@ -20,13 +20,18 @@ jobs:
         uses: google-github-actions/auth@v2
         with:
           credentials_json: '${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}'
-        
-    #   - name: Build and push eshoponwebmvc
-    #     run: |
-    #       docker build -t asia-south1-docker.pkg.dev/asif-345/siri-test-repo/eshoponwebmvc:latest -f src/Web/Dockerfile .
-    #       docker push asia-south1-docker.pkg.dev/asif-345/siri-test-repo/eshoponwebmvc:latest
+
+      - name: Authenticate Docker to Artifact Registry
+        run: |
+          echo "${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}" | \
+          docker login -u _json_key --password-stdin asia-south1-docker.pkg.dev
 
       - name: Build and push eshoppublicapi
         run: |
           docker build -t asia-south1-docker.pkg.dev/asif-345/siri-test-repo/eshoppublicapi:latest -f src/PublicApi/Dockerfile .
           docker push asia-south1-docker.pkg.dev/asif-345/siri-test-repo/eshoppublicapi:latest
+
+      - name: Build and push eshoponwebmvc
+        run: |
+          docker build -t asia-south1-docker.pkg.dev/asif-345/siri-test-repo/eshoponwebmvc:latest -f src/Web/Dockerfile .
+          docker push asia-south1-docker.pkg.dev/asif-345/siri-test-repo/eshoponwebmvc:latest

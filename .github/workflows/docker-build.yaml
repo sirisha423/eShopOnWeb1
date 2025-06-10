@@ -23,8 +23,8 @@ jobs:
 
       - name: Authenticate Docker to Artifact Registry
         run: |
-          echo "${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}" | \
-          docker login -u _json_key --password-stdin asia-south1-docker.pkg.dev
+            echo "${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}" > key.json
+            cat key.json | docker login -u _json_key --password-stdin https://asia-south1-docker.pkg.dev
 
       - name: Build and push eshoppublicapi
         run: |
